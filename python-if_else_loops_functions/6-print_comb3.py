@@ -1,8 +1,7 @@
 #!/usr/bin/python3
-for i in range(10):
-    for j in range(i + 1, 10):
-        if i == 0 and j == 1:
-            print("{:02d}{:02d}".format(i, j), end="")
+for first_digit in range(10):
+    for second_digit in range(first_digit + 1, 10):
+        if first_digit == 8 and second_digit == 9:
+            print("{}{}".format(first_digit, second_digit))
         else:
-            print(", {:02d}{:02d}".format(i, j), end="")
-print()
+            print("{}{}".format(first_digit, second_digit), end=", ")
