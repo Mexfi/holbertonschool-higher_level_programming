@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 def islower(c):
     """Check if a character is lowercase."""
     if len(c) != 1:
