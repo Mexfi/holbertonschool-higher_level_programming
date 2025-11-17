@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-mport sys
+import sys
 
 if __name__ == "__main__":
     total = 0
