@@ -6,7 +6,7 @@ if __name__ == "__main__":
     count = len(argv) - 1
 
     if count == 0:
-        print("0 argument.")
+        print("0 arguments.")
     else:
         word = "argument" if count == 1 else "arguments"
         print("{} {}:".format(count, word))
