@@ -1,6 +1,8 @@
 #!/usr/bin/python3
-a = 5
+a = 89
 b = 10
-# Insert your code here
+
+# swap a and b
 a, b = b, a
-print(f"a: {a}, b: {b}")
+
+print("a={} - b={}".format(a, b))
