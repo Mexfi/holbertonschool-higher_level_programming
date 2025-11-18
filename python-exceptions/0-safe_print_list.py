@@ -1,11 +1,12 @@
 #!/usr/bin/python3
-safe_print_list = __import__('0-safe_print_list').safe_print_list
+def safe_print_list(my_list=[], x=0):
+    count = 0
+    try:
+        for i in range(x):
+            print(my_list[i], end='')  # Çap edilən elementlər bir yerdə göstərilir
+            count += 1
+    except IndexError:
+        pass  # Siyahı bitərsə, sadəcə davam et
 
-my_list = [1, 2, 3, 4, 5]
-
-nb_print = safe_print_list(my_list, 2)
-print("nb_print: {:d}".format(nb_print))
-nb_print = safe_print_list(my_list, len(my_list))
-print("nb_print: {:d}".format(nb_print))
-nb_print = safe_print_list(my_list, len(my_list) + 2)
-print("nb_print: {:d}".format(nb_print))
+    print()  # Yeni sətirə keçmək üçün bu buradadır
+    return count
