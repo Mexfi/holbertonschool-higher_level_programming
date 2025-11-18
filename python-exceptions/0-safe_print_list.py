@@ -1,15 +1,14 @@
 #!/usr/bin/python3
+# Safe Print List
+
 def safe_print_list(my_list=[], x=0):
     count = 0
-    index = 0
     try:
-        while index < x:
-            # Attempt to print each element
-            print(my_list[index], end='')
-            count += 1
-            index += 1
-    except IndexError:
-        # Reached the end of the list
+        for item in my_list:
+            if count < x:
+                print(item, end="")
+                count += 1
+    except Exception:
         pass
     print()
     return count
