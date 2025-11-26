@@ -101,7 +101,16 @@ Test 12: integer_validator with list of numbers (TypeError)
 ...     print("[{}] {}".format(e.__class__.__name__, e))
 [TypeError] age must be an integer
 
-Test 13: integer_validator with None (TypeError)
+Test 13: integer_validator with set (TypeError)
+>>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
+>>> bg = BaseGeometry()
+>>> try:
+...     bg.integer_validator("age", {3, 4})
+... except Exception as e:
+...     print("[{}] {}".format(e.__class__.__name__, e))
+[TypeError] age must be an integer
+
+Test 14: integer_validator with None (TypeError)
 >>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
 >>> bg = BaseGeometry()
 >>> try:
@@ -110,7 +119,7 @@ Test 13: integer_validator with None (TypeError)
 ...     print("[{}] {}".format(e.__class__.__name__, e))
 [TypeError] age must be an integer
 
-Test 14: PEP8 validation - no imports
+Test 15: PEP8 validation - no imports
 >>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
 >>> import inspect
 >>> source = inspect.getsource(BaseGeometry.integer_validator)
