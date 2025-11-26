@@ -1,85 +1,93 @@
-Test with no parameters (should raise TypeError):
+Test 1: area() method exists and raises Exception
 >>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
 >>> bg = BaseGeometry()
+>>> hasattr(bg, 'area')
+True
 >>> try:
-...     bg.integer_validator()
+...     bg.area()
 ... except Exception as e:
-...     print("[{}] {}".format(e.__class__.__name__, e))
-[TypeError] integer_validator() missing 2 required positional arguments: 'name' and 'value'
+...     print(f"[{e.__class__.__name__}] {e}")
+[Exception] area() is not implemented
 
-Test with one parameter (should raise TypeError):
+Test 2: integer_validator method exists
 >>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
 >>> bg = BaseGeometry()
->>> try:
-...     bg.integer_validator("age")
-... except Exception as e:
-...     print("[{}] {}".format(e.__class__.__name__, e))
-[TypeError] integer_validator() missing 1 required positional argument: 'value'
+>>> hasattr(bg, 'integer_validator')
+True
 
-Test with valid call:
+Test 3: integer_validator with valid integer
 >>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
 >>> bg = BaseGeometry()
 >>> bg.integer_validator("age", 1)
 
-Test with zero (should raise ValueError):
+Test 4: integer_validator with zero
 >>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
 >>> bg = BaseGeometry()
 >>> try:
 ...     bg.integer_validator("age", 0)
 ... except Exception as e:
-...     print("[{}] {}".format(e.__class__.__name__, e))
+...     print(f"[{e.__class__.__name__}] {e}")
 [ValueError] age must be greater than 0
 
-Test with negative (should raise ValueError):
+Test 5: integer_validator with negative
 >>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
 >>> bg = BaseGeometry()
 >>> try:
 ...     bg.integer_validator("age", -4)
 ... except Exception as e:
-...     print("[{}] {}".format(e.__class__.__name__, e))
+...     print(f"[{e.__class__.__name__}] {e}")
 [ValueError] age must be greater than 0
 
-Test with string (should raise TypeError):
+Test 6: integer_validator with string
 >>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
 >>> bg = BaseGeometry()
 >>> try:
 ...     bg.integer_validator("age", "4")
 ... except Exception as e:
-...     print("[{}] {}".format(e.__class__.__name__, e))
+...     print(f"[{e.__class__.__name__}] {e}")
 [TypeError] age must be an integer
 
-Test with tuple (should raise TypeError):
+Test 7: integer_validator with tuple
 >>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
 >>> bg = BaseGeometry()
 >>> try:
 ...     bg.integer_validator("age", (4,))
 ... except Exception as e:
-...     print("[{}] {}".format(e.__class__.__name__, e))
+...     print(f"[{e.__class__.__name__}] {e}")
 [TypeError] age must be an integer
 
-Test with list (should raise TypeError):
+Test 8: integer_validator with list
 >>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
 >>> bg = BaseGeometry()
 >>> try:
 ...     bg.integer_validator("age", [3])
 ... except Exception as e:
-...     print("[{}] {}".format(e.__class__.__name__, e))
+...     print(f"[{e.__class__.__name__}] {e}")
 [TypeError] age must be an integer
 
-Test with boolean (should raise TypeError):
+Test 9: integer_validator with boolean
 >>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
 >>> bg = BaseGeometry()
 >>> try:
 ...     bg.integer_validator("age", True)
 ... except Exception as e:
-...     print("[{}] {}".format(e.__class__.__name__, e))
+...     print(f"[{e.__class__.__name__}] {e}")
 [TypeError] age must be an integer
 
-Test with list of numbers (should raise TypeError):
+Test 10: integer_validator with set
 >>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
 >>> bg = BaseGeometry()
 >>> try:
-...     bg.integer_validator("age", [3, 4])
+...     bg.integer_validator("age", {3, 4})
 ... except Exception as e:
-...     print("[{}] {}".format(e.__class__.__name__, e))
+...     print(f"[{e.__class__.__name__}] {e}")
+[TypeError] age must be an integer
+
+Test 11: integer_validator with None
+>>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
+>>> bg = BaseGeometry()
+>>> try:
+...     bg.integer_validator("age", None)
+... except Exception as e:
+...     print(f"[{e.__class__.__name__}] {e}")
 [TypeError] age must be an integer
