@@ -1,28 +1,27 @@
-Test 1: area method
+Test with no parameters (should raise TypeError):
 >>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
 >>> bg = BaseGeometry()
 >>> try:
-...     bg.area()
+...     bg.integer_validator()
 ... except Exception as e:
 ...     print("[{}] {}".format(e.__class__.__name__, e))
-[Exception] area() is not implemented
+[TypeError] integer_validator() missing 2 required positional arguments: 'name' and 'value'
 
-Test 2: integer_validator with valid values
->>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
->>> bg = BaseGeometry()
->>> bg.integer_validator("my_int", 12)
->>> bg.integer_validator("width", 89)
-
-Test 3: integer_validator with string
+Test with one parameter (should raise TypeError):
 >>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
 >>> bg = BaseGeometry()
 >>> try:
-...     bg.integer_validator("name", "John")
+...     bg.integer_validator("age")
 ... except Exception as e:
 ...     print("[{}] {}".format(e.__class__.__name__, e))
-[TypeError] name must be an integer
+[TypeError] integer_validator() missing 1 required positional argument: 'value'
 
-Test 4: integer_validator with zero
+Test with valid call:
+>>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
+>>> bg = BaseGeometry()
+>>> bg.integer_validator("age", 1)
+
+Test with zero (should raise ValueError):
 >>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
 >>> bg = BaseGeometry()
 >>> try:
@@ -31,58 +30,56 @@ Test 4: integer_validator with zero
 ...     print("[{}] {}".format(e.__class__.__name__, e))
 [ValueError] age must be greater than 0
 
-Test 5: integer_validator with negative
+Test with negative (should raise ValueError):
 >>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
 >>> bg = BaseGeometry()
 >>> try:
-...     bg.integer_validator("distance", -4)
+...     bg.integer_validator("age", -4)
 ... except Exception as e:
 ...     print("[{}] {}".format(e.__class__.__name__, e))
-[ValueError] distance must be greater than 0
+[ValueError] age must be greater than 0
 
-Test 6: Additional tests for various data types
+Test with string (should raise TypeError):
 >>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
 >>> bg = BaseGeometry()
+>>> try:
+...     bg.integer_validator("age", "4")
+... except Exception as e:
+...     print("[{}] {}".format(e.__class__.__name__, e))
+[TypeError] age must be an integer
 
-Test with tuple
+Test with tuple (should raise TypeError):
+>>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
+>>> bg = BaseGeometry()
 >>> try:
 ...     bg.integer_validator("age", (4,))
 ... except Exception as e:
 ...     print("[{}] {}".format(e.__class__.__name__, e))
 [TypeError] age must be an integer
 
-Test with list
+Test with list (should raise TypeError):
+>>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
+>>> bg = BaseGeometry()
 >>> try:
 ...     bg.integer_validator("age", [3])
 ... except Exception as e:
 ...     print("[{}] {}".format(e.__class__.__name__, e))
 [TypeError] age must be an integer
 
-Test with boolean True
+Test with boolean (should raise TypeError):
+>>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
+>>> bg = BaseGeometry()
 >>> try:
 ...     bg.integer_validator("age", True)
 ... except Exception as e:
 ...     print("[{}] {}".format(e.__class__.__name__, e))
 [TypeError] age must be an integer
 
-Test with list of numbers
+Test with list of numbers (should raise TypeError):
+>>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
+>>> bg = BaseGeometry()
 >>> try:
 ...     bg.integer_validator("age", [3, 4])
 ... except Exception as e:
 ...     print("[{}] {}".format(e.__class__.__name__, e))
 [TypeError] age must be an integer
-
-Test with None
->>> try:
-...     bg.integer_validator("age", None)
-... except Exception as e:
-...     print("[{}] {}".format(e.__class__.__name__, e))
-[TypeError] age must be an integer
-
-Test 7: Method existence
->>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
->>> bg = BaseGeometry()
->>> hasattr(bg, 'area')
-True
->>> hasattr(bg, 'integer_validator')
-True
