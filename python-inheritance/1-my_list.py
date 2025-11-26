@@ -15,6 +15,8 @@ class MyList(list):
         Prints the list sorted in ascending order
         Does not modify the original list
         """
-        sorted_list = self.copy()  # Create a copy to avoid modifying original
-        sorted_list.sort()         # Sort the copy
-        print(sorted_list)         # Print the sorted copy
+        if all(isinstance(x, int) for x in self):
+            sorted_list = sorted(self)
+            print(sorted_list)
+        else:
+            print("All elements must be integers")
