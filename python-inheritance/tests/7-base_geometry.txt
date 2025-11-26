@@ -1,0 +1,54 @@
+Test 1: Check area method raises exception
+>>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
+>>> bg = BaseGeometry()
+>>> try:
+...     bg.area()
+... except Exception as e:
+...     print("[{}] {}".format(e.__class__.__name__, e))
+[Exception] area() is not implemented
+
+Test 2: Check integer_validator with valid values
+>>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
+>>> bg = BaseGeometry()
+>>> bg.integer_validator("width", 5)
+>>> bg.integer_validator("height", 10)
+
+Test 3: Check integer_validator with non-integer
+>>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
+>>> bg = BaseGeometry()
+>>> try:
+...     bg.integer_validator("name", "John")
+... except Exception as e:
+...     print("[{}] {}".format(e.__class__.__name__, e))
+[TypeError] name must be an integer
+
+Test 4: Check integer_validator with zero
+>>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
+>>> bg = BaseGeometry()
+>>> try:
+...     bg.integer_validator("age", 0)
+... except Exception as e:
+...     print("[{}] {}".format(e.__class__.__name__, e))
+[ValueError] age must be greater than 0
+
+Test 5: Check integer_validator with negative number
+>>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
+>>> bg = BaseGeometry()
+>>> try:
+...     bg.integer_validator("distance", -4)
+... except Exception as e:
+...     print("[{}] {}".format(e.__class__.__name__, e))
+[ValueError] distance must be greater than 0
+
+Test 6: Check class and method existence
+>>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
+>>> bg = BaseGeometry()
+>>> hasattr(bg, 'area')
+True
+>>> hasattr(bg, 'integer_validator')
+True
+>>> import inspect
+>>> inspect.ismethod(bg.area)
+True
+>>> inspect.ismethod(bg.integer_validator)
+True
