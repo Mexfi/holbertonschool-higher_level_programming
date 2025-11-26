@@ -1,8 +1,92 @@
-Test 10: PEP8 validation (basic check without subprocess)
+Test 1: Check instantiation
 >>> MyList = __import__('1-my_list').MyList
->>> import inspect
->>> source = inspect.getsource(MyList.print_sorted)
->>> "import" not in source  # Ensure no modules are imported
+>>> my_list = MyList()
+>>> isinstance(my_list, MyList)
 True
->>> "def print_sorted" in source  # Ensure method exists
+
+Test 2: Check inherits from list
+>>> MyList = __import__('1-my_list').MyList
+>>> my_list = MyList()
+>>> isinstance(my_list, list)
 True
+
+Test 3: Check __str__ method
+>>> MyList = __import__('1-my_list').MyList
+>>> my_list = MyList()
+>>> my_list.append(1)
+>>> my_list.append(2)
+>>> str(my_list)
+'[1, 2]'
+
+Test 4: Check append method
+>>> MyList = __import__('1-my_list').MyList
+>>> my_list = MyList()
+>>> my_list.append(5)
+>>> my_list.append(3)
+>>> len(my_list)
+2
+>>> my_list[0]
+5
+>>> my_list[1]
+3
+
+Test 5: Check print_sorted with sorted append
+>>> MyList = __import__('1-my_list').MyList
+>>> my_list = MyList()
+>>> my_list.append(1)
+>>> my_list.append(2)
+>>> my_list.append(3)
+>>> my_list.print_sorted()
+[1, 2, 3]
+
+Test 6: Check print_sorted with not sorted append
+>>> MyList = __import__('1-my_list').MyList
+>>> my_list = MyList()
+>>> my_list.append(3)
+>>> my_list.append(1)
+>>> my_list.append(2)
+>>> my_list.print_sorted()
+[1, 2, 3]
+
+Test 7: Check print_sorted with negative numbers
+>>> MyList = __import__('1-my_list').MyList
+>>> my_list = MyList()
+>>> my_list.append(-5)
+>>> my_list.append(10)
+>>> my_list.append(-2)
+>>> my_list.append(0)
+>>> my_list.print_sorted()
+[-5, -2, 0, 10]
+
+Test 8: Check print_sorted with empty list
+>>> MyList = __import__('1-my_list').MyList
+>>> my_list = MyList()
+>>> my_list.print_sorted()
+[]
+
+Test 9: Check print_sorted returns a new list (original unchanged)
+>>> MyList = __import__('1-my_list').MyList
+>>> my_list = MyList()
+>>> my_list.append(5)
+>>> my_list.append(2)
+>>> my_list.append(8)
+>>> original_id = id(my_list)
+>>> my_list.print_sorted()
+[2, 5, 8]
+>>> print(my_list)  # Original should be unchanged
+[5, 2, 8]
+>>> id(my_list) == original_id  # Should be same object
+True
+
+Test 10: Check multiple appends and prints
+>>> MyList = __import__('1-my_list').MyList
+>>> my_list = MyList()
+>>> my_list.append(9)
+>>> my_list.append(1)
+>>> my_list.append(5)
+>>> print(my_list)
+[9, 1, 5]
+>>> my_list.print_sorted()
+[1, 5, 9]
+>>> print(my_list)  # Original unchanged
+[9, 1, 5]
