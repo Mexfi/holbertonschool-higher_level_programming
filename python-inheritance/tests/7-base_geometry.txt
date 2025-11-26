@@ -1,4 +1,44 @@
-Test 1: integer_validator with zero (ValueError)
+Test 1: Check area method exists and raises Exception
+>>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
+>>> bg = BaseGeometry()
+>>> hasattr(bg, 'area')
+True
+>>> try:
+...     bg.area()
+... except Exception as e:
+...     print("[{}] {}".format(e.__class__.__name__, e))
+[Exception] area() is not implemented
+
+Test 2: Check integer_validator method exists
+>>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
+>>> bg = BaseGeometry()
+>>> hasattr(bg, 'integer_validator')
+True
+
+Test 3: integer_validator with no parameters (Python TypeError)
+>>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
+>>> bg = BaseGeometry()
+>>> try:
+...     bg.integer_validator()
+... except TypeError as e:
+...     print("TypeError occurred")
+TypeError occurred
+
+Test 4: integer_validator with one parameter (Python TypeError)
+>>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
+>>> bg = BaseGeometry()
+>>> try:
+...     bg.integer_validator("age")
+... except TypeError as e:
+...     print("TypeError occurred")
+TypeError occurred
+
+Test 5: integer_validator with valid integer
+>>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
+>>> bg = BaseGeometry()
+>>> bg.integer_validator("age", 1)
+
+Test 6: integer_validator with zero (ValueError)
 >>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
 >>> bg = BaseGeometry()
 >>> try:
@@ -7,7 +47,7 @@ Test 1: integer_validator with zero (ValueError)
 ...     print("[{}] {}".format(e.__class__.__name__, e))
 [ValueError] age must be greater than 0
 
-Test 2: integer_validator with negative (ValueError)
+Test 7: integer_validator with negative (ValueError)
 >>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
 >>> bg = BaseGeometry()
 >>> try:
@@ -16,7 +56,7 @@ Test 2: integer_validator with negative (ValueError)
 ...     print("[{}] {}".format(e.__class__.__name__, e))
 [ValueError] age must be greater than 0
 
-Test 3: integer_validator with string (TypeError)
+Test 8: integer_validator with string (TypeError)
 >>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
 >>> bg = BaseGeometry()
 >>> try:
@@ -25,7 +65,7 @@ Test 3: integer_validator with string (TypeError)
 ...     print("[{}] {}".format(e.__class__.__name__, e))
 [TypeError] age must be an integer
 
-Test 4: integer_validator with tuple (TypeError)
+Test 9: integer_validator with tuple (TypeError)
 >>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
 >>> bg = BaseGeometry()
 >>> try:
@@ -34,7 +74,7 @@ Test 4: integer_validator with tuple (TypeError)
 ...     print("[{}] {}".format(e.__class__.__name__, e))
 [TypeError] age must be an integer
 
-Test 5: integer_validator with list (TypeError)
+Test 10: integer_validator with list (TypeError)
 >>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
 >>> bg = BaseGeometry()
 >>> try:
@@ -43,7 +83,7 @@ Test 5: integer_validator with list (TypeError)
 ...     print("[{}] {}".format(e.__class__.__name__, e))
 [TypeError] age must be an integer
 
-Test 6: integer_validator with boolean True (TypeError)
+Test 11: integer_validator with boolean True (TypeError)
 >>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
 >>> bg = BaseGeometry()
 >>> try:
@@ -52,7 +92,7 @@ Test 6: integer_validator with boolean True (TypeError)
 ...     print("[{}] {}".format(e.__class__.__name__, e))
 [TypeError] age must be an integer
 
-Test 7: integer_validator with list of numbers (TypeError)
+Test 12: integer_validator with list of numbers (TypeError)
 >>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
 >>> bg = BaseGeometry()
 >>> try:
@@ -61,7 +101,7 @@ Test 7: integer_validator with list of numbers (TypeError)
 ...     print("[{}] {}".format(e.__class__.__name__, e))
 [TypeError] age must be an integer
 
-Test 8: integer_validator with None (TypeError)
+Test 13: integer_validator with None (TypeError)
 >>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
 >>> bg = BaseGeometry()
 >>> try:
@@ -70,16 +110,9 @@ Test 8: integer_validator with None (TypeError)
 ...     print("[{}] {}".format(e.__class__.__name__, e))
 [TypeError] age must be an integer
 
-Test 9: Valid integer_validator call
+Test 14: PEP8 validation - no imports
 >>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
->>> bg = BaseGeometry()
->>> bg.integer_validator("age", 1)
-
-Test 10: area method
->>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
->>> bg = BaseGeometry()
->>> try:
-...     bg.area()
-... except Exception as e:
-...     print("[{}] {}".format(e.__class__.__name__, e))
-[Exception] area() is not implemented
+>>> import inspect
+>>> source = inspect.getsource(BaseGeometry.integer_validator)
+>>> "import" not in source
+True
