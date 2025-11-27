@@ -1,32 +1,21 @@
 #!/usr/bin/python3
-"""Module that defines a Student class"""
+"""Pascal's Triangle"""
 
 
-class Student:
-    """Defines a student by first name, last name, and age."""
+def pascal_triangle(n):
+    """Returns a list of lists of integers representing Pascal's triangle of n"""
+    if n <= 0:
+        return []
 
-    def __init__(self, first_name, last_name, age):
-        """Initialize a Student instance."""
-        self.first_name = first_name
-        self.last_name = last_name
-        self.age = age
+    triangle = []
 
-    def to_json(self, attrs=None):
-        """Retrieve a dictionary representation of a Student instance."""
-        if isinstance(attrs, list):
-            if all(isinstance(attr, str) for attr in attrs):
-                result = {}
-                for attr in attrs:
-                    if hasattr(self, attr):
-                        result[attr] = getattr(self, attr)
-                return result
-        return self.__dict__
+    for i in range(n):
+        row = []
+        for j in range(i + 1):
+            if j == 0 or j == i:
+                row.append(1)
+            else:
+                row.append(triangle[i-1][j-1] + triangle[i-1][j])
+        triangle.append(row)
 
-    def reload_from_json(self, json):
-        """Replace all attributes of the Student instance.
-
-        Args:
-            json (dict): Dictionary containing attribute names and values
-        """
-        for key, value in json.items():
-            setattr(self, key, value)
+    return triangle
