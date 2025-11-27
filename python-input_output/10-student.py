@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 """
 This module defines a Student class with public attributes
-first_name, last_name, and age. It provides a method to
-return a dictionary representation of the instance.
+first_name, last_name, and age, and a method to return
+a dictionary representation of the instance.
 """
 
 
@@ -18,7 +18,7 @@ class Student:
 
     def __init__(self, first_name, last_name, age):
         """
-        Initialize a Student instance.
+        Initializes a Student instance.
 
         Args:
             first_name (str): The student's first name.
@@ -31,14 +31,10 @@ class Student:
 
     def to_json(self, attrs=None):
         """
-        Return a dictionary representation of the Student instance.
+        Returns a dictionary representation of the Student instance.
 
-        If attrs is a list of strings, only the attributes
-        contained in this list will be included in the result.
-        Otherwise, all attributes will be included.
+        If attrs is a list of strings, only attributes in this list
+        are included in the result. Otherwise, all attributes are included.
 
         Args:
-            attrs (list, optional): List of attribute names to include.
-
-        Returns:
-            dict: Dictionary of the requested attrib
+            attrs (list, optional): Li
