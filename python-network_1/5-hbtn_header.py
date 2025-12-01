@@ -13,27 +13,28 @@ def get_request_id():
     Fetches the URL provided as the first command-line argument and prints the
     value of the 'X-Request-Id' header from the response.
     """
-    # Check if a URL argument was provided (though the requirement says not to check)
+    # Check if a URL argument was provided
     if len(sys.argv) < 2:
         return
 
     url = sys.argv[1]
 
     try:
-        # Send a GET request. requests automatically follows redirects (301, 302, etc.).
-        # The headers checked will be from the final response, which covers the
-        # "one redirection" case correctly.
+        # Send a GET request.
         response = requests.get(url)
 
         # Access the headers dictionary and safely get the 'X-Request-Id' value.
-        x_request_id = response.headers.get('X-Request-Id')
+        # The line is split after the comma inside the get() method.
+        x_request_id = response.headers.get(
+            'X-Request-Id'
+        )
 
         # Print the value of the header if it exists
         if x_request_id:
             print(x_request_id)
 
     except requests.exceptions.RequestException:
-        # Catch network/connection errors, but do nothing (pass) as per typical requirements.
+        # Catch network/connection errors, but do nothing (pass).
         pass
 
 
