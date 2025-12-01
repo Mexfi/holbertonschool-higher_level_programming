@@ -1,6 +1,10 @@
 #!/usr/bin/python3
 import urllib.request
 
+"""
+This script fetches the status of https://intranet.hbtn.io/status
+and displays the response body in a specific format.
+"""
 def fetch_status():
     url = "https://intranet.hbtn.io/status"
 
