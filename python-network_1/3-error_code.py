@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 """
 This script sends a GET request to a URL and displays the body of the response
-(decoded in UTF-8). If an HTTP error occurs, it prints "Error code: <HTTP status code>".
+(decoded in UTF-8). If an HTTP error occurs, it prints "Error code: <HTTP status
+code>".
 """
 
 import urllib.request
