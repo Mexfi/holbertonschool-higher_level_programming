@@ -7,6 +7,7 @@ as an argument and prints it.
 import urllib.request
 import sys
 
+
 def fetch_request_id(url):
     """
     Fetches the X-Request-Id header from the response of a GET request to the
