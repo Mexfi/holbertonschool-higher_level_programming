@@ -20,7 +20,9 @@ def fetch_url(url):
             print(body)
 
     except urllib.error.HTTPError as e:
-        print(f"Error code: {e.code}")
+        print(
+            f"Error code: {e.code}"
+        )
 
 
 if __name__ == "__main__":
