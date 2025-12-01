@@ -1,8 +1,7 @@
 #!/usr/bin/python3
 """
-Python script that takes a URL, sends a request, and displays the response body.
-If the HTTP status code is 400 or greater, it prints an error code message.
-Uses only 'requests' and 'sys' packages.
+Takes URL, requests it, and displays the response body or an error code.
+Uses 'requests' and 'sys'.
 """
 import requests
 import sys
@@ -10,28 +9,24 @@ import sys
 
 def check_url_status():
     """
-    Sends a GET request to the URL provided as a command-line argument.
-    Prints the body if the status code is < 400, or prints an error message
-    if the status code is >= 400.
+    Sends GET request and prints body or error code >= 400.
     """
-    # The URL is the first command-line argument
+    # URL is the first command-line argument
     url = sys.argv[1]
 
     try:
-        # Send a GET request
         response = requests.get(url)
 
         # Check the HTTP status code
         if response.status_code >= 400:
-            # If the status code indicates an error (4xx or 5xx)
+            # Print error message for 4xx or 5xx status codes
             print(f"Error code: {response.status_code}")
         else:
-            # Display the body of the response for success codes (< 400)
+            # Display the body for success codes (< 400)
             print(response.text)
 
     except requests.exceptions.RequestException:
-        # Handle connection errors (DNS failure, timeout, etc.) gracefully.
-        # Although not explicitly required, this prevents the script from crashing.
+        # Handle connection errors gracefully
         pass
 
 
