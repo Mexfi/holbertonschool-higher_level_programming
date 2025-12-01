@@ -8,6 +8,7 @@ import urllib.parse
 import urllib.request
 import sys
 
+
 def send_email_post(url, email):
     """
     Sends a POST request to the specified URL with the email as a parameter
@@ -23,6 +24,7 @@ def send_email_post(url, email):
 
         # Print the body of the response
         print(body)
+
 
 if __name__ == "__main__":
     # Get the URL and email from command-line arguments
