@@ -17,14 +17,13 @@ def get_request_id():
     if len(sys.argv) < 2:
         return
 
-    url = sys.argv[1]
+    url = sys.argv[1] # <--- Potential line 26
 
     try:
         # Send a GET request.
         response = requests.get(url)
 
         # Access the headers dictionary and safely get the 'X-Request-Id' value.
-        # The line is split after the comma inside the get() method.
         x_request_id = response.headers.get(
             'X-Request-Id'
         )
