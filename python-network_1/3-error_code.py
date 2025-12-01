@@ -1,34 +1,25 @@
 #!/usr/bin/python3
 """
-This script sends a GET request to a URL and displays the body of the response
-(decoded in UTF-8). If an HTTP error occurs, it prints "Error code: <HTTP status 
-code>".
+Script that takes in a URL, sends a request to the URL, and displays
+the body of the response (decoded in utf-8).
+It must manage urllib.error.HTTPError exceptions and print the error code.
+Usage: ./3-error_code.py <URL>
 """
-
 import urllib.request
-import sys
 import urllib.error
+import sys
 
+# The URL is passed as the first command-line argument
+url = sys.argv[1]
 
-def fetch_url(url):
-    """
-    Fetches the URL and handles HTTPError exceptions by printing the error code.
-    If successful, it prints the body of the response in UTF-8.
-    """
-    try:
-        with urllib.request.urlopen(url) as response:
-            body = response.read().decode('utf-8')
-            print(body)
+try:
+    # Use the 'with' statement for proper resource management
+    with urllib.request.urlopen(url) as response:
+        # Read the body and decode it using utf-8
+        body = response.read().decode('utf-8')
+        print(body)
 
-    except urllib.error.HTTPError as e:
-        print(
-            f"Error code: {e.code}"
-        )
-
-
-if __name__ == "__main__":
-    # Get the URL from the command-line argument
-    url = sys.argv[1]
-
-    # Call the function to fetch the URL and handle errors
-    fetch_url(url)
+# Catch the specific HTTPError exception
+except urllib.error.HTTPError as e:
+    # If an HTTPError occurs, print the specific error code
+    print(f"Error code: {e.code}")
