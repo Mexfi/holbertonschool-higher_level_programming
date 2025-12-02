@@ -8,7 +8,7 @@ def create_database():
     DB_FILE = 'products.db'
     conn = None
 
-    # Əgər mövcuddursa, verilənlər bazası faylını silirik
+    # Təmiz başlanğıcı təmin etmək üçün mövcud faylı silirik
     if os.path.exists(DB_FILE):
         try:
             os.remove(DB_FILE)
@@ -17,11 +17,10 @@ def create_database():
             print(f"Xəbərdarlıq: Mövcud '{DB_FILE}' faylını silmək mümkün olmadı: {e}")
 
     try:
-        # Verilənlər bazasına qoşulma (fayl yoxdursa yaradılır)
         conn = sqlite3.connect(DB_FILE)
         cursor = conn.cursor()
-
-        # 1. Products cədvəlinin yaradılması
+        
+        # Products cədvəlinin yaradılması
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS Products (
                 id INTEGER PRIMARY KEY,
@@ -30,18 +29,18 @@ def create_database():
                 price REAL NOT NULL
             )
         ''')
-
-        # 2. İlkin məlumatların daxil edilməsi
+        
+        # İlkin məlumatların daxil edilməsi
         cursor.execute('''
             INSERT INTO Products (id, name, category, price)
             VALUES
             (1, 'Laptop', 'Electronics', 799.99),
             (2, 'Coffee Mug', 'Home Goods', 15.99)
         ''')
-
+        
         conn.commit()
         print(f"Database '{DB_FILE}' uğurla yaradıldı və dolduruldu.")
-
+        
     except sqlite3.Error as e:
         print(f"Verilənlər bazası əməliyyatı zamanı xəta: {e}")
     finally:
