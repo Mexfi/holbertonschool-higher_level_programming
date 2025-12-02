@@ -35,5 +35,4 @@ def create_database():
             conn.close()
 
 if __name__ == '__main__':
-    # Running this part creates the database before the Flask app starts
     create_database()
