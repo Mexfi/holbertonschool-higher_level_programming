@@ -1,57 +1,58 @@
 import json
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
-# Subclass of BaseHTTPRequestHandler to handle requests
+# Sadece GET isteğini işlemek için BaseHTTPRequestHandler'dan türetilmiş sınıf
 class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
 
     def do_GET(self):
-        # Check the path of the request
+        # İstek yoluna göre işlem yapıyoruz
         if self.path == "/":
-            # Handle root ("/") request
+            # Ana sayfaya gelen isteğe yanıt
             self.send_response(200)
             self.send_header('Content-type', 'text/plain')
             self.end_headers()
-            self.wfile.write(b"Hello, this is a simple API!")
+            self.wfile.write(b"Hello, this is a simple API!"
 
         elif self.path == "/data":
-            # Handle "/data" request
+            # /data yoluna gelen isteğe JSON yanıtı gönderiyoruz
             self.send_response(200)
             self.send_header('Content-type', 'application/json')
             self.end_headers()
 
-            # Data to return
+            # JSON formatında veri
             data = {
                 "name": "John",
                 "age": 30,
                 "city": "New York"
             }
 
-            # Convert Python dictionary to JSON string and send
+            # JSON verisini yanıt olarak gönderiyoruz
             self.wfile.write(json.dumps(data).encode('utf-8'))
 
         elif self.path == "/status":
-            # Handle "/status" request
+            # /status yoluna gelen isteğe durum yanıtı gönderiyoruz
             self.send_response(200)
             self.send_header('Content-type', 'application/json')
             self.end_headers()
 
+            # Durum JSON verisi
             status = {"status": "OK"}
             self.wfile.write(json.dumps(status).encode('utf-8'))
 
         else:
-            # Handle undefined endpoints
+            # Tanımlanmamış yollar için 404 yanıtı
             self.send_response(404)
             self.send_header('Content-type', 'text/plain')
             self.end_headers()
             self.wfile.write(b"Endpoint not found")
 
-# Function to run the server
+# Sunucu çalıştırma fonksiyonu
 def run(server_class=HTTPServer, handler_class=SimpleHTTPRequestHandler, port=8000):
     server_address = ('', port)
     httpd = server_class(server_address, handler_class)
     print(f"Starting server on port {port}...")
     httpd.serve_forever()
 
-# Entry point for running the server
+# Sunucuyu başlatmak için ana işlev
 if __name__ == "__main__":
     run()
