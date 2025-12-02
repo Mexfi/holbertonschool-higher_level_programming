@@ -1,58 +1,79 @@
+import http.server
+import socketserver
 import json
-from http.server import BaseHTTPRequestHandler, HTTPServer
 
-# Sadece GET isteğini işlemek için BaseHTTPRequestHandler'dan türetilmiş sınıf
-class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
+# Define the port the server will run on
+PORT = 8000
+
+class SimpleAPIHandler(http.server.BaseHTTPRequestHandler):
+    """
+    A custom request handler for the simple API server.
+    Handles GET requests for different endpoints.
+    """
 
     def do_GET(self):
-        # İstek yoluna göre işlem yapıyoruz
-        if self.path == "/":
-            # Ana sayfaya gelen isteğe yanıt
+        """
+        Handle GET requests and route them to the appropriate response.
+        """
+        if self.path == '/':
+            # Handling the root endpoint (/)
             self.send_response(200)
-            self.send_header('Content-type', 'text/plain')
+            self.send_header("Content-type", "text/plain")
             self.end_headers()
-            self.wfile.write(b"Hello, this is a simple API!"
+            response = "Hello, this is a simple API!"
+            self.wfile.write(response.encode('utf-8'))
 
-        elif self.path == "/data":
-            # /data yoluna gelen isteğe JSON yanıtı gönderiyoruz
+        elif self.path == '/data':
+            # Handling the /data endpoint to serve JSON data
+            data = {"name": "John", "age": 30, "city": "New York"}
             self.send_response(200)
-            self.send_header('Content-type', 'application/json')
+            self.send_header("Content-type", "application/json")
             self.end_headers()
+            response = json.dumps(data)
+            self.wfile.write(response.encode('utf-8'))
 
-            # JSON formatında veri
-            data = {
-                "name": "John",
-                "age": 30,
-                "city": "New York"
-            }
-
-            # JSON verisini yanıt olarak gönderiyoruz
-            self.wfile.write(json.dumps(data).encode('utf-8'))
-
-        elif self.path == "/status":
-            # /status yoluna gelen isteğe durum yanıtı gönderiyoruz
+        elif self.path == '/status':
+            # Handling the /status endpoint to check API status
             self.send_response(200)
-            self.send_header('Content-type', 'application/json')
+            self.send_header("Content-type", "text/plain")
             self.end_headers()
+            response = "OK"
+            self.wfile.write(response.encode('utf-8'))
 
-            # Durum JSON verisi
-            status = {"status": "OK"}
-            self.wfile.write(json.dumps(status).encode('utf-8'))
+        elif self.path == '/info':
+            # Handling the /info endpoint for general API information
+            info_data = {"version": "1.0", "description": "A simple API built with http.server"}
+            self.send_response(200)
+            self.send_header("Content-type", "application/json")
+            self.end_headers()
+            response = json.dumps(info_data)
+            self.wfile.write(response.encode('utf-8'))
 
         else:
-            # Tanımlanmamış yollar için 404 yanıtı
+            # Handling undefined endpoints (404 Not Found)
             self.send_response(404)
-            self.send_header('Content-type', 'text/plain')
+            self.send_header("Content-type", "text/plain")
             self.end_headers()
-            self.wfile.write(b"Endpoint not found")
+            response = "Endpoint not found"
+            self.wfile.write(response.encode('utf-8'))
 
-# Sunucu çalıştırma fonksiyonu
-def run(server_class=HTTPServer, handler_class=SimpleHTTPRequestHandler, port=8000):
-    server_address = ('', port)
-    httpd = server_class(server_address, handler_class)
-    print(f"Starting server on port {port}...")
-    httpd.serve_forever()
+# --- Server Setup ---
 
-# Sunucuyu başlatmak için ana işlev
+def run_server():
+    """
+    Sets up and starts the HTTP server.
+    """
+    # Use ThreadingTCPServer for concurrent connections (better than TCPServer)
+    # The HandlerClass is SimpleAPIHandler
+    with socketserver.ThreadingTCPServer(("", PORT), SimpleAPIHandler) as httpd:
+        print(f"Serving on port {PORT}")
+        print(f"Access the API at http://localhost:{PORT}")
+        try:
+            # Keep the server running until interrupted
+            httpd.serve_forever()
+        except KeyboardInterrupt:
+            print("\nServer stopped.")
+            httpd.shutdown()
+
 if __name__ == "__main__":
-    run()
+    run_server()
